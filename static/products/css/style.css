@@ -165,16 +165,69 @@ span {
     margin: 0 0 0 20px;
   }
 
+.products{
+  display: flex;
+}
+
 .cards{
-
-    border:1px solid gray;
-    margin: 20px 15px 20px 15px;
-
+    display: flex;
+    max-width: 500px;
+    margin-bottom: 40px;
+    margin-left: 20px;
+     
  }
 
-.right span{
-    display: block;
-    margin-top: 5px;
+.left-content{
+  display: flex;
+  flex-direction: column;
+  
+}
 
+ .right-content{
+   display: flex;
+   flex-direction: column;
+   margin-left: 15px;
+   
+ }
+
+
+
+.right-content span{
+   
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+  }
+
+  .quantity-form{
+    margin-top: 10px;
+    
+  }
+
+  .quantity-form span{
+    display: block;
+    
+    
+  }
+
+
+  .title{
+
+    font-weight: bold;
+    font-size: larger;
+  }
+
+  .price{
+    background-color: orangered;
+    width: 150px;
+    height: 30px;
+    
+  }
+  .price>span{
+    color: white;
+    text-align: center;
+    font-weight: 700;
+    padding-top: 6px;
+   
   }
 

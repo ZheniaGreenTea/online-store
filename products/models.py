@@ -89,7 +89,8 @@ def max_value_current_year(value):
 class Product(models.Model):
 
     name = models.CharField('название товара', max_length=250)
-    authors = models.ManyToManyField(Writer, verbose_name="автор")
+    author = models.ManyToManyField(Writer, verbose_name="автор")
+    quantity = models.PositiveIntegerField(default=0)
     pub_house = models.ForeignKey(PublishingHouse,verbose_name="издательство",on_delete=models.CASCADE)
     age_choice = (('для детей','для детей'),
                                 ('для школьников','для школьников'),
@@ -100,11 +101,11 @@ class Product(models.Model):
                                 ('16+', '16+'),
                                 ('18+', '18+'),
                                 ('12+','12+'))
-    age = models.CharField("возрастное ограничение", max_length=250,blank=True, null=True, choices=age_choice)
+    age = models.CharField("возрастное ограничение",max_length=250,blank=True, null=True, choices=age_choice)
     pub_year = models.PositiveIntegerField(
         default=current_year(), validators=[MinValueValidator(1900), max_value_current_year])
     language_choice = (('укранский','укранский'),('английский','английский'),('русский','русский'))
-    language = models.CharField("язык",max_length=250,blank=True, choices=language_choice)
+    language = models.CharField("язык",max_length=250,blank=True, null=True, choices=language_choice)
     translator = models.ManyToManyField(Translator, verbose_name="переводчик",blank=True)
     ganre = models.ManyToManyField(Ganre, verbose_name="жанр")
     slug = models.SlugField('url',max_length=200,unique=True)
@@ -116,7 +117,6 @@ class Product(models.Model):
     create_date = models.DateTimeField('дата загрузки ', auto_now_add=True)
     up_date = models.DateTimeField('дата обновления ', auto_now=True)
     category = models.ForeignKey(Category, verbose_name="категория",on_delete=models.CASCADE)
-
 
 
     class Meta:
