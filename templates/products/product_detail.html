@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'products/css/style.css' %}" />
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Second page</h1>
+
+ <div class="category_products">
+    {% for product in products %}
+     <div class="cards">
+         <div class="left">
+
+         </div>
+         <div class="right">
+             <span>{{ product.name }}</span>
+             {% for author in product.authors.all %}
+              <span>{{  author  }}</span>
+             <span>{{ product.price }}</span>
+             <a class="btn add" href="">добавить</a>
+             {% endfor %}
+         </div>
+     </div>
+     {% endfor %}
+     </div>
+
+ <div>
+
+ </div>
+</body>
+</html>
