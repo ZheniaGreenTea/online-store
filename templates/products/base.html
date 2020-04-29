@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+
+  <head>
+    <meta charset="UTF-8" />
     {% load static %}
     <link rel="stylesheet" href="{% static 'products/css/style.css' %}" />
     <title>Title</title>
-</head>
-<body>
+  </head>
 
+  <body>
+        
     <div class="header">
-        <div class="container">
-            <div>
-                    <ul class="header_menu">
-                        {% for category in menu_category_list %}
-                                <li><a href="{% url 'detail_category' category.slug %}">{{category.name}}</a></li>
-                        {% endfor %}
-                    </ul>
-
-
+      <div class="container">
+          <ul class="header_menu">
+            {% for category in object_list %}
+                    <li><a href="{% url 'products' category.slug %}">{{category.name}}</a></li>
+                    {% endfor %}
+          </ul>
+      </div>
+    </div>
+    <div class="main">
+      <div class="container">
+        <div class="product">
+          {% for product in products %}
+          <div class="cards">
+              {% for img in product.productimage_set.all %}
+              <a href=""><img height="300px" width="200"src="{{MEDIA_URL}}{{img.path.url}}" alt=""></a>
+              {% endfor %}
             </div>
+          {% endfor %}
+          </div>
         </div>
-
+      </div>
     </div>
 
-</body>
+  </body>
+
 </html>

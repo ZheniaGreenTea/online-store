@@ -131,13 +131,10 @@ table {
 /*-----------------cammon start------------------*/
 * {
   box-sizing: border-box;
-
 }
 
 body {
-
   padding: 10px 0;
-
 }
 
 .bc {
@@ -156,78 +153,69 @@ span {
 }
 /*-----------------cammon end------------------*/
 
-.header_menu{
-    display: flex;
- }
-
-.header_menu li{
-    list-style: none;
-    margin: 0 0 0 20px;
-  }
-
-.products{
+.header_menu {
   display: flex;
-}
-
-.cards{
-    display: flex;
-    max-width: 500px;
-    margin-bottom: 40px;
-    margin-left: 20px;
-     
- }
-
-.left-content{
-  display: flex;
-  flex-direction: column;
   
 }
 
- .right-content{
-   display: flex;
-   flex-direction: column;
-   margin-left: 15px;
-   
- }
+.header_menu li {
+  list-style: none;
+  margin-right: 25px;
+}
 
+.main{
+  padding-top: 50px;;
+}
 
+.products {
+  display: flex;
+  flex-direction: row;
+}
 
-.right-content span{
-   
-    margin-top: 5px;
-    margin-bottom: 5px;
+.cards {
+  display: flex;
+  max-width: 500px;
+  margin-bottom: 40px;
+  margin-left: 20px;
+}
 
-  }
+.left-content {
+  display: flex;
+  flex-direction: column;
+}
 
-  .quantity-form{
-    margin-top: 10px;
-    
-  }
+.right-content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
 
-  .quantity-form span{
-    display: block;
-    
-    
-  }
+.right-content span {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 
+.quantity-form {
+  margin-top: 10px;
+}
 
-  .title{
+.quantity-form span {
+  display: block;
+}
 
-    font-weight: bold;
-    font-size: larger;
-  }
+.title {
+  font-weight: bold;
+  font-size: larger;
+}
 
-  .price{
-    background-color: orangered;
-    width: 150px;
-    height: 30px;
-    
-  }
-  .price>span{
-    color: white;
-    text-align: center;
-    font-weight: 700;
-    padding-top: 6px;
-   
-  }
-
+.price {
+  background-color: orangered;
+  width: 150px;
+  height: 30px;
+}
+.price > span {
+  color: white;
+  text-align: center;
+  font-weight: 700;
+  padding-top: 6px;
+}
