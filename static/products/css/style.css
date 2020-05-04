@@ -167,13 +167,14 @@ span {
   padding-top: 50px;;
 }
 
-.products {
+.product {
   display: flex;
-  flex-direction: row;
+  
 }
 
 .cards {
   display: flex;
+  flex-direction: row;
   max-width: 500px;
   margin-bottom: 40px;
   margin-left: 20px;
@@ -182,40 +183,71 @@ span {
 .left-content {
   display: flex;
   flex-direction: column;
+  padding-right: 25px;
 }
 
-.right-content {
+.right-content{
   display: flex;
   flex-direction: column;
-  margin-left: 15px;
 }
-
 .right-content span {
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
-.quantity-form {
-  margin-top: 10px;
-}
 
-.quantity-form span {
-  display: block;
-}
 
 .title {
   font-weight: bold;
   font-size: larger;
 }
 
+
 .price {
-  background-color: orangered;
-  width: 150px;
-  height: 30px;
-}
-.price > span {
-  color: white;
+  display: block;
   text-align: center;
-  font-weight: 700;
+  background-color: orangered;
+  width: 85px;
+  height: 30px;
   padding-top: 6px;
+  margin-top:5px ;
+  
 }
+
+.price > span, .price > i {
+  color: white;
+  font-weight: 600;
+}
+
+.price > i {
+  font-size: smaller;
+}
+
+.quantity{
+  margin-top: 20px;
+
+}
+
+.quantity input{
+  display: block;
+}
+
+.quantity-field{
+  padding-left: 17px;
+}
+
+.button-quantity{
+  margin-top: 15px;
+}
+
+/*
+переделать
+*/
+.detail{
+  margin-top: 50px;
+
+}
+
+
+  
+  
+

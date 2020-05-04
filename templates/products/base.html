@@ -25,7 +25,7 @@
           {% for product in products %}
           <div class="cards">
               {% for img in product.productimage_set.all %}
-              <a href=""><img height="300px" width="200"src="{{MEDIA_URL}}{{img.path.url}}" alt=""></a>
+              <a href="{% url 'product_detail' product.slug %}"><img height="300px" width="200"src="{{MEDIA_URL}}{{img.path.url}}" alt=""></a>
               {% endfor %}
             </div>
           {% endfor %}
