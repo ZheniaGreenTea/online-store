@@ -35,24 +35,7 @@ class ProductDetailView(DetailView):
 
 
 
-class ProductInSession(View):
 
-    def get(self, request, slug):
-        object = Product.objects.get(slug=slug)
-        quantity = request.GET['prod']
-
-        if 'cart' not in request.session:
-            request.session['cart'] = {}
-            request.session['cart']['product_id'] = object.id
-            request.session['cart']['quantity'] = quantity
-            request.session.modified = True
-            print('******session cart*******',request.session['cart'])
-            return render(request,'carts/cart.html')
-
-        else:
-            del request.session["cart"]
-            print('session- - -', request.session)
-            return render(request, 'products/product_detail.html')
 
 
 
