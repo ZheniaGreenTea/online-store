@@ -2,11 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    {% load  static %}
+      <link rel="stylesheet" href="{% static 'products/css/style.css' %}">
+
+      <link rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.12.1/css/all.css"
+        crossorigin="anonymous" />
+       <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.0.min.js"></script>
+
     <title>Корзина</title>
 </head>
 <body>
 
-    <H1>Это корзина</H1>
+
+
+
+        <div class="container">
+
+            <div class="wrap">
+
+                <div class="current-product">
+                    <div>{{ product }}</div>
+
+                </div>
+
+                <div class="current-quantity">
+                    <div>{{ quantity }}</div>
+
+                </div>
+
+                <div class="current-price">
+                    <div>{{ price }}</div>
+
+                </div>
+        </div>
+
+        </div>
+
+
 
 </body>
 </html>

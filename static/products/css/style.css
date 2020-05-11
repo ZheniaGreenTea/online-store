@@ -273,6 +273,25 @@ span {
 
 }
 
+.wrap{
+    display: flex;
+
+}
+.current-product > div{
+    background: white;
+    padding-right: 15px;
+}
+
+.current-quantity{
+    background: white;
+    padding-right: 15px;
+}
+
+.current-price{
+    background: white;
+    padding-right: 15px;
+}
+
 
   
   
