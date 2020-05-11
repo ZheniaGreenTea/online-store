@@ -243,7 +243,33 @@ span {
 переделать
 */
 .detail{
-  margin-top: 50px;
+  margin-top: 5px;
+
+}
+.detail-menu{
+  display: inline-block;
+  text-align: end;
+  width: 600px;
+  margin-bottom: 15px;
+}
+
+.detail-menu > a {
+  visibility: hidden;
+}
+
+.messagefield{
+    height: 30px;
+    width: 200px;
+    background: sandybrown;
+    border-radius: 5px;
+    margin: 0 auto;
+    visibility: hidden;
+}
+
+.sysmessage{
+    padding: 7px;
+    color: black;
+    margin: 10px 0;
 
 }
 

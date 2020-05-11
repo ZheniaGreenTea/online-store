@@ -20,6 +20,14 @@
   
      <div class="detail">
         <div class="container">
+            <div class="detail-menu">
+                <a style="{{ visible }}" href="/to_cart/">Корзина</a>
+                <div class="messagefield">
+                    <div class="sysmessage">Товар добавлен в корзину
+                   </div>
+
+                </div>
+            </div>
             <div class="cards">
 
               <div class="left-content">
@@ -42,8 +50,8 @@
 
                    <div class="quantity">
 
-                    <input class="quantity-field" type="number" name="quantity" min="1" max="5" placeholder="шт." required>
-                    <input class="button-quantity" type="submit" value="в корзину" >
+                    <input class="quantity-field" type="number" name="quantity" min="1" max="5" placeholder="шт." required >
+                    <input class="button-quantity" type="submit" value="добавить" >
                    </div>
 
                   <div class="right-content-bottom" >
@@ -63,15 +71,19 @@
 
                   $.ajax({
                         url: 'quantity/',
-                        method: 'GET', // or another (GET), whatever you need
+                        method: 'GET',
                         data: {
                             prod: $number,
-
-                          }
+                            st: "visibility: visible"
+                        },
                   });
+                  successfulMessage()
 
-                        });
-
+              });
+              function successfulMessage() {
+                  $(".messagefield").css("visibility", "visible").fadeOut(4000);
+                  $(".detail-menu a").css("visibility", "visible");
+              }
          </script>
 
 

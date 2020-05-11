@@ -34,6 +34,24 @@ class ProductDetailView(DetailView):
     slug_url_kwarg = 'slug'
 
 
+    def get_context_data(self, *args, **kwargs):
+        """если юзер еще не добавлял товар - кнопка корзина скрыта"""
+        context = super(ProductDetailView,
+                        self).get_context_data(**kwargs)
+
+        if 'css' not in self.request.session:
+                return context
+        else:
+            visible = self.request.session['css']['style']
+            if visible != " ":
+                context['visible'] = visible
+                return context
+
+
+
+
+
+
 
 
 
