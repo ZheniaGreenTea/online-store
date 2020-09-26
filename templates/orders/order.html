@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     {% load  static %}
+     {% load l10n %}
+      <link rel="stylesheet" type="text/css" href="{% static 'products/css/style.css' %}">
+
+      <link rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.12.1/css/all.css"
+        crossorigin="anonymous" />
+    <title>Title</title>
+</head>
+<body>
+
+
+    <div class="container">
+            <p class="order-title" >Заказ</p>
+            {% for row in order_list  %}
+            <div class="current-order">
+                <div>
+                   <div class="order-name">{{ row.0 }}:  </div>
+                   <div class="order-quantity">{{ row.1 }} шт.</div>
+                   <div class="order-price">{{ row.2|unlocalize }} </div>
+                   <span>euro</span>
+                </div>
+
+            </div>
+            {% endfor  %}
+            <div class="order-total-price">
+                   <div class="order-current-total-price">всего: {{ total_price|unlocalize}}
+                       <span>euro</span>
+                   </div>
+            </div>
+
+            <form class="delivery-form" action="/ordering/" method="post">
+                {% csrf_token %}
+                <div class="name-data">
+                    <p>Получатель</p>
+                    <p>имя:</p>
+                    {{ order_form.name }}<br>
+                    <p>фамилия:</p>
+                    {{ order_form.last_name }}<br>
+                    <p>телефон:</p>
+                    {{ order_form.telephone }}<br>
+                    <p>эл.почта:</p>
+                    {{ order_form.email }}<br>
+                    <p>город:</p>
+                    {{ order_form.city_delivery }}<br>
+
+
+                </div>
+
+
+
+                <div class="common-tab">
+
+                       <div class="tab">
+
+                          <button type="button" class="tablinks" onclick="openCity(event, 'deliveryMan')" id="defaultOpen">Курьер</button>
+                          <button type="button" class="tablinks" onclick="openCity(event, 'newPost')">Новая почта</button>
+                           <button type="button" class="tablinks" onclick="openCity(event, 'ukrPost')">Укр почта</button>
+                          <button type="button" class="tablinks" onclick="openCity(event, 'departmenWay')">Самовывоз</button>
+                        </div>
+
+                       <div id="deliveryMan" class="tabcontent">
+                                    <p>улица:</p>
+                            <input type="text" name="streetdeliveryman"><br>
+                               <p>дом:</p>
+                            <input type="text"  name="homedeliveryman"><br>
+                           <p>квартира:</p>
+                            <input type="text" name="flatdeliveryman"/><br>
+                            <p>подъезд:</p>
+                            <input type="text" name="wayindeliveryman"><br>
+                       </div>
+
+                       <div id="newPost" class="tabcontent">
+
+                           <p>адресс отделения:</p>
+                            <p class="PostNew">{{order_form.nova_post_office}}</p>
+
+                       </div>
+
+                        <div id="ukrPost" class="tabcontent">
+                            <p>адресс отделения:</p>
+
+                            <p  class="PostUkr">{{order_form.ukr_post_office}}</p>
+
+                       </div>
+
+                        <div id="departmenWay" class="tabcontent">
+
+                          <p>адресс самовывоза</p>
+                          <input class="DepWay" type="text"  name="post_office"><br>
+                        </div>
+                        <div class="payment">
+                            <select name="payment_method" class="payment-method">
+                                <option value="4">Оплата онлайн</option>
+                                <option value="6">Наличными</option>
+
+                            </select>
+                        </div>
+
+                     <div class="order-button">
+                        <input class="to-add-order" type="submit" value="добавить">
+
+                     </div>
+                </div>
+            </form>
+    </div>
+
+    <script>
+
+                function openCity(evt, name) {
+                  var i, tabcontent, tablinks;
+                  tabcontent = document.getElementsByClassName("tabcontent");
+                  for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+
+                  }
+                  tablinks = document.getElementsByClassName("tablinks");
+
+                  for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+
+
+                  }
+                  document.getElementById(name).style.display = "block";
+                  console.log("name :",name);
+                  evt.currentTarget.className += " active";
+                  if(name=="deliveryMan"){
+                     document.querySelector('.PostNew').style.display = "none";
+                     document.querySelector('.PostUkr').style.display = "none";
+                     document.querySelector('.DepWay').style.display = "none";
+
+                  }
+                  else if(name=="newPost"){
+                    document.querySelector('.PostNew').style.display = "block";
+                    document.querySelector('.deliveryMan').style.display = "none";
+                    document.querySelector('.DepWay').style.display = "none";
+                    document.querySelector('.PostUkr').style.display = "none";
+
+                  }
+                  else if(name=="ukrPost"){
+                    document.querySelector('.PostUkr').style.display = "block";
+                    document.querySelector('.deliveryMan').style.display = "none";
+                    document.querySelector('.PostNew').style.display = "none";
+                    document.querySelector('.DepWay').style.display = "none";
+
+                  }
+                  else if(name=="departmenWay"){
+                     document.querySelector('.DepWay').style.display = "block";
+                     document.querySelector('.PostUkr').style.display = "none";
+                     document.querySelector('.deliveryMan').style.display = "none";
+                     document.querySelector('.PostNew').style.display = "none";
+
+                                  }
+
+                }
+                document.getElementById("defaultOpen").click();
+
+
+
+
+    </script>
+
+
+</body>
+</html>

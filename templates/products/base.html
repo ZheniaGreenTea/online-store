@@ -3,8 +3,10 @@
 
   <head>
     <meta charset="UTF-8" />
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'products/css/style.css' %}" />
+
+      {% load static %}
+
+      <link rel="stylesheet" type="text/css" href="{% static 'products/css/style.css' %}">
     <title>Title</title>
   </head>
 
@@ -15,6 +17,7 @@
           <ul class="header_menu">
             {% for category in object_list %}
                     <li><a href="{% url 'products' category.slug %}">{{category.name}}</a></li>
+
                     {% endfor %}
           </ul>
       </div>
@@ -23,6 +26,7 @@
       <div class="container">
         <div class="product">
           {% for product in products %}
+
           <div class="cards">
               {% for img in product.productimage_set.all %}
               <a href="{% url 'product_detail' product.slug %}"><img height="300px" width="200"src="{{MEDIA_URL}}{{img.path.url}}" alt=""></a>

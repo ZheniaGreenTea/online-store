@@ -1,41 +1,61 @@
 from django.conf import settings
+from django.http import HttpResponse
+
+from products.models import Product
 
 
-class Cart(object):
+class Cart():
     """Инициализация объекта корзины."""
     def __init__(self, request):
         self.session = request.session
-        cart = self.session.get(settings.CART_SESSION_ID)
 
-        if not cart:
-            # Сохраняем в сессии пустую корзину.
-            cart = self.session[settings.CART_SESSION_ID] = {}
-            self.cart = cart
+    def add(self,product_id,quantity):
 
+        print('something is working', product_id,quantity)
 
-    def add(self, product, quantity=1, update_quantity=False):
-        """Добавление товара в корзину или обновление его количества."""
-        product_id = str(product.id)
-        if product_id not in self.cart:
-            self.cart[product_id] = {'quantity': 0, 'price': str(product.price)}
-        if update_quantity:
-            self.cart[product_id]['quantity'] = quantity
+        if 'cart' not in self.session:
+            self.session['cart'] = {}
+            self.session['cart'] = {product_id: quantity}
+            self.session.save()
+            print('добавилось в пустую корзину:',self.session['cart'])
+
+        elif product_id not in self.session['cart']:
+            self.session['cart'][product_id] = quantity
+            print('нет дублей', self.session['cart'])
+            self.session.save()
+
         else:
-            self.cart[product_id]['quantity'] += quantity
-        self.save()
+            print('request.session[cart] DO изменений', self.session['cart'])
+            current_quantity = self.session['cart'][product_id]
+            print('current_quantity:',current_quantity)
+            new_quantity = current_quantity + 1
+            print('new_quantity::',new_quantity)
+            self.session['cart'][product_id] = new_quantity
+            self.session.save()
+            print('request.session[cart] после изменений', self.session['cart'])
 
 
-    def save(self):
-        # Помечаем сессию как измененную
-        self.session.modified = True
+    def minus(self,product_id,quantity):
 
-    def remove(self, product):
-        product_id = str(product.id)
-        if product_id in self.cart:
-            del self.cart[product_id]
-        self.save()
+            print('minus DO изменений:', self.session['cart'],'quantity arg:',quantity )
+            current_quantity = self.session['cart'][product_id]
+            print(' minus current_quantity:', current_quantity)
+            new_quantity = current_quantity-1
 
+            if new_quantity <= 0:
+                new_quantity = 1
+                self.session['cart'][product_id] = new_quantity
+                self.session.save()
+                print('minus <= 0:: после изменений', self.session['cart'])
+            else:
+                self.session['cart'][product_id] = new_quantity
+                self.session.save()
+                print('minus после изменений', self.session['cart'])
 
-    def clear(self):
-        del self.session[settings.CART_SESSION_ID]
-        self.save()
+    def remove(self,product_id):
+
+        print('remove до удаления', self.session['cart'])
+        if product_id in self.session['cart']:
+            del self.session['cart'][product_id]
+            self.session['cart'] = self.session['cart'].copy()
+            print('remove после удаления', self.session['cart'])

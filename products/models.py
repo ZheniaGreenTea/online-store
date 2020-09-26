@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
+from pytz import unicode
 
 
 class Ganre(models.Model):
@@ -36,25 +37,29 @@ class Writer(models.Model):
     first_name = models.CharField('имя автора', max_length=250)
     last_name = models.CharField('фамилия автора', max_length=250)
 
+    def __str__(self):
+        return '{0} {1}'.format(self.first_name, self.last_name)
+
     class Meta:
 
         verbose_name = "Писатель"
         verbose_name_plural = "Писатели"
 
-    def __str__(self):
-        return '{0} {1}'.format(self.first_name, self.last_name)
+
 
 
 class PublishingHouse(models.Model):
 
     name = models.CharField('издательство', max_length=250)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = 'Издательство'
         verbose_name_plural = 'Издательства'
 
-    def __str__(self):
-        return self.name
+
 
 
 class Category(models.Model):
@@ -62,13 +67,15 @@ class Category(models.Model):
     name = models.CharField('категория', max_length=250)
     slug = models.SlugField('url', max_length=250, unique=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
 
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
-    def __str__(self):
-        return self.name
+
 
 
 def current_year():
@@ -114,12 +121,14 @@ class Product(models.Model):
     category = models.ForeignKey(
         Category, verbose_name="категория", on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
-    def __str__(self):
-        return self.name
+
 
 
 class ProductImage(models.Model):
@@ -129,6 +138,10 @@ class ProductImage(models.Model):
     is_active = models.BooleanField(default=True)
     create_date = models.DateTimeField('дата создания ', auto_now_add=True)
     up_date = models.DateTimeField('дата обновления ', auto_now=True)
+
+
+    def __str__(self):
+        return unicode(self.images)
 
     class Meta:
         verbose_name = 'Фотография'

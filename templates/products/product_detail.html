@@ -3,8 +3,10 @@
 
   <head>
     <meta charset="UTF-8">
+
       {% load  static %}
-      <link rel="stylesheet" href="{% static 'products/css/style.css' %}">
+
+      <link rel="stylesheet" type="text/css" href="{% static 'products/css/style.css' %}">
       
       <link rel="stylesheet"
         href="https://use.fontawesome.com/releases/v5.12.1/css/all.css"
@@ -16,12 +18,11 @@
   </head>
 
   <body>
-
-  
      <div class="detail">
         <div class="container">
-            <div class="detail-menu">
-                <a style="{{ visible }}" href="/to_cart/">Корзина</a>
+            <div class="detail-menu" >
+
+                <a style="{{ vis }}" href="/tocart/" >Корзина</a>
                 <div class="messagefield">
                     <div class="sysmessage">Товар добавлен в корзину
                    </div>
@@ -50,7 +51,6 @@
 
                    <div class="quantity">
 
-                    <input class="quantity-field" type="number" name="quantity" min="1" max="5" placeholder="шт." required >
                     <input class="button-quantity" type="submit" value="добавить" >
                    </div>
 
@@ -65,28 +65,28 @@
         </div>
   </div>
          <script>
+              $(document).ready(function(){
+                  $('.button-quantity').click(function () {
 
-              $('.button-quantity').click(function () {
-                  $number =  $('.quantity-field').val();
+                      $.ajax({
+                            url: 'quantity/',
+                            method: 'GET',
+                            data: {
+                                quan: 1,
+                                st: "visibility: visible",
+                                add1: "true",
+                            },
+                            success: function(data){
+                                $(".messagefield").css("visibility", "visible").fadeOut(4000);
+                                $(".detail-menu a").css("visibility", "visible");
+                                    }
+                      });
 
-                  $.ajax({
-                        url: 'quantity/',
-                        method: 'GET',
-                        data: {
-                            prod: $number,
-                            st: "visibility: visible"
-                        },
+
                   });
-                  successfulMessage()
 
               });
-              function successfulMessage() {
-                  $(".messagefield").css("visibility", "visible").fadeOut(4000);
-                  $(".detail-menu a").css("visibility", "visible");
-              }
          </script>
-
-
 
   </body>
 

@@ -14,6 +14,7 @@ class ProductListView(ListView):
 
 
     def get_context_data(self, *args, **kwargs):
+
                 context = super(ProductListView,
                                 self).get_context_data(**kwargs)
                 category_slug = self.kwargs.get('slug')
@@ -42,9 +43,10 @@ class ProductDetailView(DetailView):
         if 'css' not in self.request.session:
                 return context
         else:
-            visible = self.request.session['css']['style']
+            visible = self.request.session['css']
+
             if visible != " ":
-                context['visible'] = visible
+                context['vis'] = visible
                 return context
 
 

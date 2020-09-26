@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     {% load  static %}
+    {% load l10n %}
       <link rel="stylesheet" href="{% static 'products/css/style.css' %}">
 
       <link rel="stylesheet"
@@ -15,30 +16,175 @@
 <body>
 
 
-
-
         <div class="container">
 
-            <div class="wrap">
+                {% for row in cart_list %}
+                <div class="cart-product">
 
-                <div class="current-product">
-                    <div>{{ product }}</div>
+                    <span>{{ row.1}}</span>
+                    <div>
+                        <button data-id="{{ row.0}}"  class="plus" type="button"  data-firstprice="{{ row.4|unlocalize }}"  > + </button>
+                        <input  class="quantity-field" value="{{row.2}}" type="number" min="1" max="5" required >
+                        <button data-id="{{ row.0}}" class="minus" type="button" data-firstprice="{{ row.4|unlocalize }}" > - </button>
+                        <div class="cart-price">
+                        <span >{{ row.3|unlocalize }}</span>
+                            <i class="fas fa-euro-sign"></i>
+
+                        </div>
+                        <button class="del-product" data-id="{{ row.0}}" type="button" >удалить</button>
+
+                        
+                    </div>
+
 
                 </div>
 
-                <div class="current-quantity">
-                    <div>{{ quantity }}</div>
+                {% endfor %}
+
+
+                <div class="total-price-block">
+                   <div class="current-total-price">{{ total_price|unlocalize }}
+                       <i class="fas fa-euro-sign"></i>
+                   </div>
+
 
                 </div>
+                <div class="go-to-order"><a target="_blank" href="/orders/">оформить заказ</a></div>
 
-                <div class="current-price">
-                    <div>{{ price }}</div>
 
-                </div>
+
+
         </div>
 
-        </div>
 
+       <script>
+
+                  window.onload = function(){
+
+                     let plus = document.querySelectorAll('.plus');
+
+                     for(let i = 0; i < plus.length; i++){
+
+                        plus[i].onclick = function (){
+
+                            let x = this.nextElementSibling.value;
+                            let quantity = Number(x) + 1;
+                            this.nextElementSibling.value = quantity;
+                            let firstPrice = this.dataset.firstprice;
+                            let input = this.nextElementSibling;
+                            let btnPlus = input.nextElementSibling;
+                            let cartPrice = btnPlus.nextElementSibling.childNodes[1];
+                            let price = firstPrice * quantity;
+                            cartPrice.innerHTML= price;
+                            let totalPrice = allPrice();
+                            let divTotalPrice = document.querySelector('.current-total-price');
+                            let moneySymbol = document.querySelector('.fas');
+                            divTotalPrice.innerHTML= totalPrice;
+                            divTotalPrice.appendChild(moneySymbol);
+                            moneySymbol.style.marginLeft='5px';
+                            console.log('Plus divTotalPrice : ', divTotalPrice);
+
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('GET', '/dpm/?btn=plus&pk='+this.dataset.id+'&quan='+this.nextElementSibling.value, false);
+                            xhr.send();
+
+
+                        }
+
+
+                      }
+
+
+                     let minus = document.querySelectorAll('.minus');
+                     for(let i = 0; i < minus.length; i++){
+
+                        minus[i].onclick = function (){
+                            let x = this.previousElementSibling.value;
+                            let quantity = Number(x) - 1;
+                            this.previousElementSibling.value=quantity;
+                            console.log('minus ');
+                            let firstPrice = this.dataset.firstprice;
+                            let previousPrice = this.nextElementSibling.childNodes[1].innerHTML;
+
+                            if (quantity <= 0){
+
+                                    this.previousElementSibling.value = 1;
+                                    this.nextElementSibling.childNodes[1].innerHTML= firstPrice;
+
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open('GET', '/dpm/?btn=minus&pk='+this.dataset.id+'&quan='+this.previousElementSibling.value, false);
+                                    xhr.send();
+                                }
+
+                            if(quantity >= 1){
+
+                                let price = previousPrice - firstPrice;
+                                this.nextElementSibling.childNodes[1].innerHTML= price;
+                                let totalPrice = allPrice();
+                                let divTotalPrice = document.querySelector('.current-total-price');
+                                let moneySymbol = document.querySelector('.fas');
+                                divTotalPrice.innerHTML= totalPrice;
+                                divTotalPrice.appendChild(moneySymbol);
+                                moneySymbol.style.marginLeft='5px';
+                                console.log('divTotalPrice : ', divTotalPrice);
+                                var xhr = new XMLHttpRequest();
+                                xhr.open('GET', '/dpm/?btn=minus&pk='+this.dataset.id+'&quan='+this.previousElementSibling.value, false);
+                                xhr.send();
+                            }
+
+
+                        }
+                     }
+                     let bDelete = document.querySelectorAll('.del-product');
+                     for(let i = 0; i < bDelete.length; i++){
+
+                        bDelete[i].onclick = function (){
+                            let price = this.previousElementSibling.childNodes[1].innerHTML;
+                            price = parseFloat(price);
+                            let divTotalPrice = document.querySelector('.current-total-price');
+                            console.log('divTotalPrice : ', divTotalPrice);
+                            let totalPrice = parseFloat(divTotalPrice.innerHTML);
+                            console.log('totalPrice : ', totalPrice);
+                            let moneySymbol = document.querySelector('.fas');
+
+                            let result = totalPrice - price;
+                            console.log('result : ', result);
+                            divTotalPrice.innerHTML=result;
+                            divTotalPrice.appendChild(moneySymbol);
+                            moneySymbol.style.marginLeft='5px';
+                            console.log('divTotalPrice 2 : ', divTotalPrice);
+                            this.parentNode.parentNode.remove();
+
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('GET', '/dpm/?btn=delprod&pk='+this.dataset.id, false);
+                            xhr.send();
+
+
+
+                        }
+                     }
+
+
+                  }
+
+                  function allPrice(){
+                        let totPrice = [];
+                        let divs = document.querySelectorAll('.cart-price');
+                        console.log('divs:',divs);
+                        for(let i =0; i< divs.length; i++){
+                                let el = divs[i].childNodes[1].innerHTML;
+                                el = parseFloat(el);
+                                console.log('el:',el);
+                                totPrice.push(el);
+                          }
+                        console.log(' totlPrice: ', totPrice);
+                        let allPrice = totPrice.reduce((a, b) => (a + b));
+                        return allPrice;
+
+
+                  }
+
+         </script>
 
 
 </body>

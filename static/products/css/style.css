@@ -135,6 +135,8 @@ table {
 
 body {
   padding: 10px 0;
+  
+  
 }
 
 .bc {
@@ -155,6 +157,7 @@ span {
 
 .header_menu {
   display: flex;
+
   
 }
 
@@ -251,11 +254,10 @@ span {
   text-align: end;
   width: 600px;
   margin-bottom: 15px;
-}
-
-.detail-menu > a {
   visibility: hidden;
 }
+
+
 
 .messagefield{
     height: 30px;
@@ -273,26 +275,216 @@ span {
 
 }
 
-.wrap{
+.cart-product{
     display: flex;
-
-}
-.current-product > div{
-    background: white;
-    padding-right: 15px;
-}
-
-.current-quantity{
-    background: white;
-    padding-right: 15px;
+    padding-top: 20px;
+    border-bottom: 1px solid grey;
+    padding-bottom: 10px;
+    
 }
 
-.current-price{
-    background: white;
-    padding-right: 15px;
+.cart-product > span{
+    margin-right: 20px;
 }
 
 
+
+.cart-product > div{
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+    
+ }
+.plus, .minus{
+
+    margin-left: 15px;
+    margin-right: 15px;
+    font-size:15px;
+    font-weight: bold;
+    border: none;
+    background: none;
+
+ }
+
+.cart-price {
+    margin-left: 10px;
+}
+
+.del-product{
+    margin-left: 15px;
+    border: none;
+    background: none;
+}
+
+.total-price-block{
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+
+
+}
+
+.current-total-price {
+
+     border: 1px solid grey;
+     border-radius: 5px;
+     width: 85px;
+     height: 30px;
+     text-align:center;
+     padding-top: 5px;
+
+
+}
+
+.go-to-order{
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+
+}
+
+
+.tabContainer{
+    width: 500px;
+    height: 365px;
+
+}
+.tabContainer .buttonContainer{
+    height: 15%;
+}
+.tabContainer .buttonContainer button{
+    width: 30%;
+    height: 100%;
+    float: left;
+
+    outline:none;
+    cursor: pointer;
+    padding: 10px;
+    font-family: sans-serif;
+    font-size: 18px;
+
+    border: 1px solid #DCDCDC;
+    border-radius: 6px;
+}
+.tabContainer .buttonContainer button:hover{
+    background-color: white;
+}
+.tabContainer .tabPanel{
+    height: 90%;
+    width: 450px;
+    color: black;
+    text-align: center;
+    padding-top: 105px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-size: 22px;
+    display: none;
+    border: 1px solid #DCDCDC;
+    border-radius: 5px;
+}
+
+
+
+.current-order{
+    display: flex;
+    margin-top: 5px;
+
+}
+
+.current-order > div {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.order-quantity{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.current-order > div > span, .order-current-total-price > span{
+    margin-left: 5px;
+}
+
+.tabContainer, .delivery-form{
+    margin-top:20px;
+
+}
+
+.order-title{
+    margin-bottom: 20px;
+}
   
-  
+.name-data > p, .tabcontent > p {
+    margin-bottom:6px;
+    margin-top:6px;
+}
+.order-total-price{
+    margin-top: 5px;
 
+}
+/* Style the tab */
+.common-tab{
+    width: 454px;
+    height: 325px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+
+.tab {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  height: 40px;
+
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+
+  display: none;
+  padding: 12px 12px;
+  border-top: none;
+}
+.choice-postoffice{
+    display: flex;
+    margin-bottom: 7px;
+}
+
+.choice-postoffice > p{
+
+    margin-left: 5px;
+}
+
+
+.payment, .order-button {
+
+    margin-left:15px;
+
+}
+
+.order-button{
+    margin-top: 10px;
+}
